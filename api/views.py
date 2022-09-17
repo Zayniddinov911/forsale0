@@ -26,6 +26,22 @@ def addData(request):
         serializer.save()
     return Response(serializer.data)
 
+@api_view(['POST'])
+def updateData(request, pk):
+    info = PersonModel.objects.get(id=pk)
+    serializer = PersonModelSerializer(instance=info, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['DELETE'])
+def deleteData(request, pk):
+    info = PersonModel.objects.get(id=pk)
+    info.delete()
+
+    return Response('Data successfully deleted!')
+
+
 
 
 
